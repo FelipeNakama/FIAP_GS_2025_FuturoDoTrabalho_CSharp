@@ -1,0 +1,67 @@
+﻿<Window x:Class="BurnoutWatcherMonitor.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="BurnoutWatcherMonitor" Height="540" Width="980">
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+
+        <GroupBox Header="Colaboradores" Grid.Column="0" Margin="5">
+            <StackPanel>
+                <ListBox x:Name="lstEmployees" DisplayMemberPath="Name" Height="380" SelectionChanged="LstEmployees_SelectionChanged"/>
+            </StackPanel>
+        </GroupBox>
+
+        <GroupBox Header="Resumo" Grid.Column="1" Margin="5">
+            <StackPanel Margin="8">
+                <TextBlock x:Name="txtEmployeeName" Text="(Selecione um colaborador)" FontSize="16" FontWeight="Bold" />
+
+                <StackPanel Orientation="Horizontal" Margin="0,8,0,0" VerticalAlignment="Center">
+                    <TextBlock Text="Último stress estimado:" VerticalAlignment="Center"/>
+                    <ProgressBar x:Name="pbStress" Width="250" Height="20" Margin="8,0,0,0" Maximum="100"/>
+                    <TextBlock x:Name="lblStressValue" Text=" - " Margin="8,0,0,0" VerticalAlignment="Center"/>
+                </StackPanel>
+
+                <TextBlock Text="Histórico (leituras):" FontWeight="Bold" Margin="0,12,0,4"/>
+                <ListBox x:Name="lstReadings" Height="280">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding Timestamp, StringFormat=HH:mm:ss}" Width="70"/>
+                                <TextBlock Text="Facial:" Margin="6,0,0,0"/>
+                                <TextBlock Text="{Binding FacialScore, StringFormat=F1}" Width="50" Margin="6,0"/>
+                                <TextBlock Text="Postura:" Margin="6,0,0,0"/>
+                                <TextBlock Text="{Binding PostureScore, StringFormat=F1}" Width="50" Margin="6,0"/>
+                                <TextBlock Text="Activity:" Margin="6,0,0,0"/>
+                                <TextBlock Text="{Binding ActivityScore, StringFormat=F1}" Width="50" Margin="6,0"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </StackPanel>
+        </GroupBox>
+
+        <GroupBox Header="Simulação" Grid.Column="2" Margin="5">
+            <StackPanel Margin="8">
+                <TextBlock Text="Facial (0-100)"/>
+                <Slider x:Name="sliderFacial" Minimum="0" Maximum="100" TickFrequency="5" IsSnapToTickEnabled="True"/>
+                <TextBlock x:Name="lblFacial" Text="0" HorizontalAlignment="Center"/>
+
+                <TextBlock Text="Postura (0-100)" Margin="0,8,0,0"/>
+                <Slider x:Name="sliderPosture" Minimum="0" Maximum="100" TickFrequency="5" IsSnapToTickEnabled="True"/>
+                <TextBlock x:Name="lblPosture" Text="0" HorizontalAlignment="Center"/>
+
+                <TextBlock Text="Activity (0-100)" Margin="0,8,0,0"/>
+                <Slider x:Name="sliderActivity" Minimum="0" Maximum="100" TickFrequency="5" IsSnapToTickEnabled="True"/>
+                <TextBlock x:Name="lblActivity" Text="0" HorizontalAlignment="Center"/>
+
+                <Button x:Name="btnSimulate" Content="Simular leitura" Click="BtnSimulate_Click" Margin="0,12,0,0"/>
+                <Button x:Name="btnOpenDetail" Content="Abrir detalhe" Click="BtnOpenDetail_Click" Margin="0,6,0,0"/>
+                <Button x:Name="btnSave" Content="Salvar dados" Click="BtnSave_Click" Margin="0,6,0,0"/>
+            </StackPanel>
+        </GroupBox>
+    </Grid>
+</Window>
